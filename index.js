@@ -103,14 +103,13 @@ server.put("/api/users/:id", (req, res) => {
           errorMessage: "The user with the specified ID does not exist."
         });
       }
-      db.update(userID, { name, bio }).then(user => {
-        if (!name || !bio) {
+      db.update(userID, { name, bio }).then(() => {
+        if (!name && !bio) {
           res.status(400).json({
-            errorMessage: "Please provide name or bio for the user."
+            errorMessage: "Please provide name and bio for the user."
           });
         } else {
           res.status(200).json({ name, bio });
-          console.log(name);
         }
       });
     })
